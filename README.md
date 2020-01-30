@@ -10,4 +10,4 @@ Fetch the information live from the SWAPI API and transform the response to the 
 
 You have one week to complete the task.  
 
-You can use any NPM packages to help in the assignment.  # express-take-home-swapi-0127-an
+You can use any NPM packages to help in the assignment.  
