@@ -1,21 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const request = require("request");
+const fetch = require("node-fetch");
 
 /* GET /people/:id */
 router.get("/:id", function(req, res, next) {
   //res.send('enter resource here');
-  res.setHeader("Content-Type", "application/json");
+  //res.setHeader("Content-Type", "application/json");
 
-  request.get(
-    { url: `https://swapi.co/api/people/${req.params.id}` },
-    (error, response, body) => {
-      if (error) {
-        return res.status(500).send(error);
-      }
-      res.status(response.statusCode).send(body);
-    }
-  );
+  fetch(`https://swapi.co/api/people/${req.params.id}`)
+    .then(response => response.json())
+    .then(responseJson => displayResults(responseJson))
+    .catch(error => {
+      return res.status(500).send(error);
+    });
+
+  function displayResults(responseJson) {
+    console.log(responseJson);
+    res.send(responseJson);
+  }
 });
 
 module.exports = router;
