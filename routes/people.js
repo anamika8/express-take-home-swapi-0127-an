@@ -14,11 +14,10 @@ router.get("/:id", function(req, res, next) {
   request.get(
     { url: `https://swapi.co/api/people/${req.params.id}` },
     (error, response, body) => {
-      if (!error && response.statusCode == 200) {
-        res.status(200).json(body);
-      } else if (response.statusCode == 404) {
-        res.status(404).json(body);
+      if (error) {
+        return res.status(500).json(error);
       }
+      res.status(response.statusCode).json(body);
     }
   );
 });
