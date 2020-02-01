@@ -11,17 +11,17 @@ router.get("/:id", function(req, res, next) {
     let response = await fetch(url);
     let planetResults = await response.json();
     let planetResidents = planetResults.residents;
-    let residents = [];
+    let species = [];
     for (let i = 0; i < planetResidents.length; i++) {
       const peoplesApiUrl = planetResidents[i];
-      console.log(`The residents url: ${peoplesApiUrl}`);
+      console.log(`The peoples url: ${peoplesApiUrl}`);
       let peoplesResponse = await fetch(peoplesApiUrl);
       let peoplesResult = await peoplesResponse.json();
-      residents.push(peoplesResult.species);
+      species.push.apply(species, peoplesResult.species);
     }
 
     let result = {
-      residents: residents
+      Url: species
     };
     return result;
   };
