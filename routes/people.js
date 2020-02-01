@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 /* GET /people/:id */
 router.get("/:id", function(req, res, next) {
   //res.send('enter resource here');
-  //res.setHeader("Content-Type", "application/json");
+
   const peopleApiUrl = `https://swapi.co/api/people/${req.params.id}`;
 
   let fetchPeopleData = async function(url) {
@@ -21,35 +21,38 @@ router.get("/:id", function(req, res, next) {
       let speciesResult = await speciesResponse.json();
       species.push(speciesResult.name);
     }
+
     let result = {
-      name: peopleName,
+      first_name: getFirstName(peopleName),
+      last_name: getLastName(peopleName),
       species: species.join()
     };
     return result;
   };
 
-  fetchPeopleData(peopleApiUrl).then(result => res.send(result));
+  function getFirstName(name) {
+    let fullName = name.split(" ");
+    let firstName = "";
+    if (fullName.length == 2 || fullName.length == 1) {
+      firstName = fullName[0];
+    }
+    return firstName;
+  }
 
-  /*
-  fetch(`https://swapi.co/api/people/${req.params.id}`)
-    .then(response => response.json())
-    .then(responseJson => {
-      peopleInfo = {
-        name: responseJson.name,
-        species: responseJson.species
-      };
-      return peopleInfo;
-    })
-    .then(peopleInfo => fetchSpeciesInfo(peopleInfo))
+  function getLastName(name) {
+    let fullName = name.split(" ");
+    let lastName = undefined;
+    if (fullName.length == 2) {
+      lastName = fullName[1];
+    }
+    return lastName;
+  }
+
+  fetchPeopleData(peopleApiUrl)
+    .then(result => res.send(result))
     .catch(error => {
       return res.status(500).send(error);
     });
-
-  function fetchSpeciesInfo(peopleInfo) {
-    console.log(peopleInfo);
-    res.send(peopleInfo);
-  }
-  */
 });
 
 module.exports = router;

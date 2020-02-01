@@ -37,7 +37,7 @@ describe("Simplified Star Wars API", function() {
         species: "Human"
       });
 
-      const c3poResponse = await request(app).get("/people/1");
+      const c3poResponse = await request(app).get("/people/2");
 
       assert.equal(c3poResponse.status, 200);
       assert.deepStrictEqual(c3poResponse.body, {
