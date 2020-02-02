@@ -20,13 +20,41 @@ router.get("/:id", function(req, res, next) {
       species.push.apply(species, peoplesResult.species);
     }
 
+    var getSpeciesInfo = async function(urls) {
+      //transform requests into Promises, await all
+      try {
+        var data = await Promise.all(urls.map(requestSpeciesAsync));
+        return data;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    var requestSpeciesAsync = async function(url) {
+      let response = await fetch(url);
+      let speciesResult = await response.json();
+      return speciesResult;
+    };
+
+    console.log(species);
+    speciesData = await getSpeciesInfo(species);
+    console.log("the species data are" + speciesData);
+    let speciesName = [];
+    speciesData.map(speciesInfo => {
+      console.log(`The names are: ${speciesInfo.name}`);
+      speciesName.push(speciesInfo.name);
+    });
+    console.log("The array of species name is: " + speciesName);
+
     let result = {
-      Url: species
+      url: species
+      //data: getParallel(requestSpeciesAsync(species))
     };
     return result;
   };
 
   fetchPlanetData(planetApiUrl).then(result => res.send(result));
+
   /*.catch(error => {
       return res.status(500).send(error);
     });*/
