@@ -4,12 +4,12 @@ const fetch = require("node-fetch");
 
 /* GET /planets/:id */
 router.get("/:id", function(req, res, next) {
-  //res.send("enter resource here");
   const planetApiUrl = `https://swapi.co/api/planets/${req.params.id}`;
 
   let fetchPlanetData = async function(url) {
     let response = await fetch(url);
     let planetResults = await response.json();
+    let planetName = planetResults.name;
     let planetResidents = planetResults.residents;
     let species = [];
     for (let i = 0; i < planetResidents.length; i++) {
@@ -36,28 +36,33 @@ router.get("/:id", function(req, res, next) {
       return speciesResult;
     };
 
-    console.log(species);
     speciesData = await getSpeciesInfo(species);
-    console.log("the species data are" + speciesData);
     let speciesName = [];
     speciesData.map(speciesInfo => {
-      console.log(`The names are: ${speciesInfo.name}`);
       speciesName.push(speciesInfo.name);
     });
-    console.log("The array of species name is: " + speciesName);
+
+    let speciesCountObject = {};
+    for (let i = 0; i < speciesName.length; i++) {
+      if (speciesName[i] in speciesCountObject) {
+        speciesCountObject[speciesName[i]]++;
+      } else {
+        speciesCountObject[speciesName[i]] = 1;
+      }
+    }
 
     let result = {
-      url: species
-      //data: getParallel(requestSpeciesAsync(species))
+      name: planetName,
+      count: speciesCountObject
     };
     return result;
   };
 
-  fetchPlanetData(planetApiUrl).then(result => res.send(result));
-
-  /*.catch(error => {
+  fetchPlanetData(planetApiUrl)
+    .then(result => res.send(result))
+    .catch(error => {
       return res.status(500).send(error);
-    });*/
+    });
 });
 
 module.exports = router;
