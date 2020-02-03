@@ -81,8 +81,10 @@ router.get("/:id", function(req, res, next) {
     return lastName;
   }
 
-  // calling the method and sending the result back to the caller
-  // will be sending a 500 status code if any error is encountered
+  /*
+  Calling the 'fetchPeopleData()' method and sending the result back to the caller.
+  Will be sending a 500 status code if any error is encountered.
+  */
   fetchPeopleData(peopleApiUrl)
     .then(result => res.send(result))
     .catch(error => {

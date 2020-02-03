@@ -97,6 +97,10 @@ router.get("/:id", function(req, res, next) {
     return result;
   };
 
+  /*
+  Calling the 'fetchPlanetData()' method and sending the result back to the caller.
+  Will be sending a 500 status code if any error is encountered.
+  */
   fetchPlanetData(planetApiUrl)
     .then(result => res.send(result))
     .catch(error => {
