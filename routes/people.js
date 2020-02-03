@@ -7,8 +7,7 @@ router.get("/:id", function(req, res, next) {
   //res.send('enter resource here');
 
   const peopleApiUrl = `https://swapi.co/api/people/${req.params.id}`;
-  const logErrorMessage =
-    "Encountered the below error while fetching from the url:";
+  const logErrorMessage = `Encountered the below error while fetching from the url:`;
 
   /**
    * This method is going to call the SWAPI /people API
@@ -24,8 +23,8 @@ router.get("/:id", function(req, res, next) {
       let response = await fetch(url);
       peopleResults = await response.json();
     } catch (error) {
-      console.log(`${logErrorMessage} ${url}`);
-      console.log(`ERROR: ${error}`);
+      console.error(`${logErrorMessage} ${url}`);
+      console.error(`ERROR: ${error}`);
       return error;
     }
 
@@ -40,8 +39,8 @@ router.get("/:id", function(req, res, next) {
         let speciesResult = await speciesResponse.json();
         species.push(speciesResult.name);
       } catch (error) {
-        console.log(`${logErrorMessage} ${speciesApiUrl}`);
-        console.log(`ERROR: ${error}`);
+        console.error(`${logErrorMessage} ${speciesApiUrl}`);
+        console.error(`ERROR: ${error}`);
         return error;
       }
     }
