@@ -13,8 +13,6 @@ describe("Simplified Star Wars API", function() {
     });
 
     it(`should only return a first_name when there's no last name`, async () => {
-      // NOTE: changed the id to 3 since as per the SWAPI API's data store, 'R2-D2' is associated with people id=3
-      // const response = await request(app).get("/people/1");
       const response = await request(app).get("/people/3");
 
       assert.equal(response.status, 200);
@@ -39,8 +37,6 @@ describe("Simplified Star Wars API", function() {
         species: "Human"
       });
 
-      // NOTE: changed the id to 2 since as per the SWAPI API's data store, 'C-3PO' is associated with people id=2
-      // const c3poResponse = await request(app).get('/people/1');
       const c3poResponse = await request(app).get("/people/2");
 
       assert.equal(c3poResponse.status, 200);

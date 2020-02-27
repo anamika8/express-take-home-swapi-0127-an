@@ -75,8 +75,8 @@ router.get("/:id", function(req, res, next) {
   function getLastName(name) {
     let fullName = name.split(" ");
     let lastName = undefined;
-    if (fullName.length == 2) {
-      lastName = fullName[1];
+    if (fullName.length >= 2) {
+      lastName = fullName[fullName.length - 1];
     }
     return lastName;
   }
