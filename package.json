@@ -1,5 +1,5 @@
 {
-  "name": "express-take-home",
+  "name": "express-swapi-tests",
   "version": "1.0.0",
   "description": "App to use the Star Wars API",
   "private": true,
