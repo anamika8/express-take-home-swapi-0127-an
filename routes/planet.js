@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 
 /* GET /planets/:id */
 router.get("/:id", function(req, res, next) {
-  const planetApiUrl = `https://swapi.co/api/planets/${req.params.id}`;
+  const planetApiUrl = `https://swapi.dev/api/planets/${req.params.id}`;
   const logErrorMessage = `Encountered the below error while fetching from the url:`;
 
   /**

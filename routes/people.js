@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 router.get("/:id", function(req, res, next) {
   //res.send('enter resource here');
 
-  const peopleApiUrl = `https://swapi.co/api/people/${req.params.id}`;
+  const peopleApiUrl = `https://swapi.dev/api/people/${req.params.id}`;
   const logErrorMessage = `Encountered the below error while fetching from the url:`;
 
   /**
